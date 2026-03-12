@@ -36,7 +36,7 @@ services:
       - key: FRONTEND_URL
         value: https://sugulink-frontend.onrender.com
 
-  - type: static
+  - type: web
     name: sugulink-frontend
     runtime: static
     repo: https://github.com/rougui99/sugu-link-clean.git
