@@ -1,0 +1,57 @@
+services:
+  - type: web
+    name: sugulink-backend
+    runtime: node
+    repo: https://github.com/rougui99/sugu-link-clean.git
+    plan: free
+    region: frankfurt
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_HOST
+        fromDatabase:
+          name: sugulink-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: sugulink-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: sugulink-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: sugulink-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: sugulink-db
+          property: database
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://sugulink-frontend.onrender.com
+
+  - type: static
+    name: sugulink-frontend
+    runtime: static
+    repo: https://github.com/rougui99/sugu-link-clean.git
+    plan: free
+    region: frankfurt
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://sugulink-backend.onrender.com
+
+databases:
+  - name: sugulink-db
+    databaseName: sugulink
+    user: sugulink_user
+    plan: free
+    region: frankfurt
