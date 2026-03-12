@@ -36,12 +36,12 @@ services:
       - key: FRONTEND_URL
         value: https://sugulink-frontend.onrender.com
 
-  - type: web
+  - type: static
     name: sugulink-frontend
     runtime: static
     repo: https://github.com/rougui99/sugu-link-clean.git
     plan: free
-    region: frankfurt
+    # region: frankfurt  ← SUPPRIMÉ ! (les sites statiques n'ont pas de région)
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
